@@ -47,9 +47,9 @@ INSERT INTO merchant (store_name, username, password, contact_details, buisness_
 
 
 -- Product
-INSERT INTO Product (name, description, main_image_url, keywords, tags, product_categoryId, product_merchantId) VALUES ('iphone', 'iphone 14', 'your_main_image_url_value', '5', '14', '2', '2');
-INSERT INTO Product (name, description, main_image_url, keywords, tags, product_categoryId, product_merchantId) VALUES ('ring', 'gold ring', 'your_main_image_url_value', '5', '14', '1', '1');
-INSERT INTO Product (name, description, main_image_url, keywords, tags, product_categoryId, product_merchantId) VALUES ('necklace', 'platinum necklace', 'your_main_image_url_value', '5', '14', '1', '1');
+INSERT INTO Product (name, description, main_image_url, keywords, tags, product_categoryId, product_merchantId) VALUES ('iphone', 'iphone 14', 'https://www.apple.com/v/iphone-14/i/images/key-features/features/size/size_blue__ce5igjmvhjua_large.jpg', '5', '14', '2', '2');
+INSERT INTO Product (name, description, main_image_url, keywords, tags, product_categoryId, product_merchantId) VALUES ('ring', 'gold ring', 'https://image.brilliantearth.com/media/diamond_ring_vto/GK/BE1D13065_yellow_Round_top_2_carat.png', '5', '14', '1', '1');
+INSERT INTO Product (name, description, main_image_url, keywords, tags, product_categoryId, product_merchantId) VALUES ('necklace', 'platinum necklace', 'https://www.datocms-assets.com/25216/1618868740-solitaire-pear-pendant-1-0ct-white-gold-front.jpg?q=50&ar=1%3A1&fit=crop&auto=format&fit=crop&crop=focalpoint&fp-z=1&w=1534', '5', '14', '1', '1');
 
 
 -- Manufacturer
@@ -74,9 +74,9 @@ INSERT INTO Review (title, rating, feedback, rev_productId, rev_approvedUserId) 
 INSERT INTO Review (title, rating, feedback, rev_productId, rev_approvedUserId) VALUES ('bad cord', '1', 'broke day after i got it', '2', '2');
 
 -- product_image
-INSERT INTO product_image (image_Url, productimage_productId) VALUES ('your_image_url_value', '1');
-INSERT INTO product_image (image_Url, productimage_productId) VALUES ('your_image_url_value', '1');
-INSERT INTO product_image (image_Url, productimage_productId) VALUES ('your_image_url_value', '1');
+INSERT INTO product_image (image_Url, productimage_productId) VALUES ('https://www.apple.com/newsroom/images/product/iphone/standard/Apple-iPhone-14-Pro-iPhone-14-Pro-Max-hero-220907_Full-Bleed-Image.jpg.large.jpg', '1');
+INSERT INTO product_image (image_Url, productimage_productId) VALUES ('https://www.apple.com/newsroom/images/product/iphone/geo/Apple-iPhone-14-iPhone-14-Plus-hero-220907-geo.jpg.og.jpg?202305232133', '1');
+INSERT INTO product_image (image_Url, productimage_productId) VALUES ('https://www.apple.com/v/iphone-14/i/images/key-features/features/size/size_blue__ce5igjmvhjua_large.jpg', '1');
 
 -- Inventory
 INSERT INTO Inventory (stock, inventory_productId) VALUES ('0','1');
@@ -109,8 +109,7 @@ INSERT INTO shippingMethod (name, cost, estimateddeliverytime) VALUES ('usps', '
 INSERT INTO shippingMethod (name, cost, estimateddeliverytime) VALUES ('ups', '20.00', '2 days');
 INSERT INTO shippingMethod (name, cost, estimateddeliverytime) VALUES ('fedex', '29.00', '1 day');
 
--- ordersError Code: 1452. Cannot add or update a child row: a foreign key constraint fails (`ecommercedb`.`orderr`, CONSTRAINT `order_shippingId` FOREIGN KEY (`order_shippingId`) REFERENCES `shipping_address` (`ship_addressId`))
-
+-- orders
 INSERT INTO orderr (orderStatus, paymentStatus, shipping_tracking, order_billingId, order_shippingId, order_shippingmethodId, order_trackingId) VALUES ('pending', 'accepted', 'agsvhbejehcoq23', '1', '1', '1','1');
 INSERT INTO orderr (orderStatus, paymentStatus, shipping_tracking, order_billingId, order_shippingId, order_shippingmethodId, order_trackingId) VALUES ('pending', 'accepted', 'agsvhbsdcdejehcoq23', '1', '1', '3','1');
 INSERT INTO orderr (orderStatus, paymentStatus, shipping_tracking, order_billingId, order_shippingId, order_shippingmethodId, order_trackingId) VALUES ('pending', 'accepted', 'agsvhbejehcoqevrsd23', '2', '3', '1','2');
