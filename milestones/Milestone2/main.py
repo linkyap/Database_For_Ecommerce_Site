@@ -7,20 +7,28 @@ requirements for this assignments.
 
 import discord
 from discord.ext import commands
-from models import *
+import os
+from database import *
+from model import *
 
-TOKEN = 'your Discord token'
+TOKEN = os.environ["DISCORD_TOKEN"]
 
 intents = discord.Intents.all()
 
 bot = commands.Bot(command_prefix='!', intents=discord.Intents.all())
 
+@bot.event 
+async def on_ready(): 
+    print(f"{bot.user.name} has joined the room")
+    database = Database()
+    if database._connect(): 
+        # if you are here, this means that you have a succesfull connection to your database 
+        print(f"{bot.user.name} is connected to the remote database") 
+    else: 
+        print(f"{bot.user.name} couldn't connect to the database ")
+  
+  
 
-@bot.command(name="test", description="write your database business requirement for this command here")
-async def _test(ctx, arg1):
-    testModel = TestModel(ctx, arg1)
-    response = testModel.response()
-    await ctx.send(response)
 
 
 # TODO: complete the following tasks:
@@ -28,79 +36,13 @@ async def _test(ctx, arg1):
 #       (2) Write the description of your business requirement in the description parameter
 #       (3) Implement your commands' methods.
 
-@bot.command(name="cmd_1", description="database business requirement #1 here")
-async def _command1(ctx, *args):
-    await ctx.send("This method is not implemented yet")
+@bot.command(description="Find all the employees with a email domain @mail")
+async def employee_domain (ctx, domain): 
+    employee = Employee()
+    employees_with_domains = employee.find_email_domain(domain)
+    await ctx.send(f"{employees_with_domains}")
 
 
-@bot.command(name="cmd_2", description="database business requirement #2 here")
-async def _command2(ctx, *args):
-    await ctx.send("This method is not implemented yet")
-
-
-@bot.command(name="cmd_3", description="database business requirement #3 here")
-async def _command3(ctx, *args):
-    await ctx.send("This method is not implemented yet")
-
-
-@bot.command(name="cmd_4", description="database business requirement #4 here")
-async def _command4(ctx, *args):
-    await ctx.send("This method is not implemented yet")
-
-
-@bot.command(name="cmd_5", description="database business requirement #5 here")
-async def _command5(ctx, *args):
-    await ctx.send("This method is not implemented yet")
-
-
-@bot.command(name="cmd_6", description="database business requirement #6 here")
-async def _command6(ctx, *args):
-    await ctx.send("This method is not implemented yet")
-
-
-@bot.command(name="cmd_7", description="database business requirement #7 here")
-async def _command7(ctx, *args):
-    await ctx.send("This method is not implemented yet")
-
-
-@bot.command(name="cmd_8", description="database business requirement #8 here")
-async def _command8(ctx, *args):
-    await ctx.send("This method is not implemented yet")
-
-
-@bot.command(name="cmd_9", description="database business requirement #9 here")
-async def _command9(ctx, *args):
-    await ctx.send("This method is not implemented yet")
-
-
-@bot.command(name="cmd_10", description="database business requirement #10 here")
-async def _command10(ctx, *args):
-    await ctx.send("This method is not implemented yet")
-
-
-@bot.command(name="cmd_11", description="database business requirement #11 here")
-async def _command11(ctx, *args):
-    await ctx.send("This method is not implemented yet")
-
-
-@bot.command(name="cmd_12", description="database business requirement #12 here")
-async def _command12(ctx, *args):
-    await ctx.send("This method is not implemented yet")
-
-
-@bot.command(name="cmd_13", description="database business requirement #13 here")
-async def _command13(ctx, *args):
-    await ctx.send("This method is not implemented yet")
-
-
-@bot.command(name="cmd_14", description="database business requirement #14 here")
-async def _command14(ctx, *args):
-    await ctx.send("This method is not implemented yet")
-
-
-@bot.command(name="cmd_15", description="database business requirement #15 here")
-async def _command15(ctx, *args):
-    await ctx.send("This method is not implemented yet")
 
 
 bot.run(TOKEN)

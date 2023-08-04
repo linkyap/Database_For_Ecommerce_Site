@@ -2,6 +2,7 @@
 # so they can be used by your database models to interact with your bot.
 
 import os
+from pymysql import DatabaseError
 import pymysql.cursors
 
 # note that your remote host where your database is hosted
@@ -14,8 +15,8 @@ db_name = os.environ["DB_NAME"]
 
 class Database:
 
-    @staticmethod
-    def connect():
+    
+    def _connect(self):
         """
         This method creates a connection with your database
         IMPORTANT: all the environment variables must be set correctly
@@ -29,10 +30,67 @@ class Database:
                                    user=db_username,
                                    password=db_password,
                                    db=db_name,
-                                   charset="utf8mb4", cursorclass=pymysql.cursors.DictCursor)
-            print("Bot connected to database {}".format(db_name))
+                                   charset="utf8mb4", 
+                                   cursorclass=pymysql.cursors.DictCursor)
             return conn
-        except:
-            print("Bot failed to create a connection with your database because your secret environment variables " +
-                  "(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) are not set".format(db_name))
-            print("\n")
+        except DatabaseError as err:
+            print(err.args[1])
+            return None
+
+    def _query_response(self, query, values=None, fetchresults=False, many=False): 
+        connection = self._connect()
+        cursor = connection.cursor()
+        if values: 
+            if many: 
+               cursor.executemany(query, values) 
+            else: 
+               cursor.execute(query, values)
+        else: 
+            cursor.execute(query)
+        connection.commit()
+        connection.close()
+        if fetchresults: 
+            return cursor.fetchall()
+        return None
+
+
+    @staticmethod 
+    def select(query, values=None): 
+      db = Database() 
+      return  db._query_response(query, values, fetchresults=True) 
+    
+
+class Query: 
+    ALL_EMPLOYEES = """SELECT * FROM Employee e 
+                      JOIN Resident r ON r.ssn = e.ssn
+                      JOIN Company c ON c.company_id = e.company"""
+    GET_EMPLOYEE = """SELECT * FROM Employee e 
+                      JOIN Resident r ON r.ssn = e.ssn
+                      JOIN Company c ON c.company_id = e.company
+                      WHERE r.ssn = %s"""
+    
+    
+
+
+
+
+
+
+
+  
+
+    
+    
+
+   
+
+      
+    
+    
+   
+
+         
+       
+           
+   
+        
